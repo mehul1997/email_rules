@@ -29,7 +29,7 @@ def authenticate():
             creds = flow.run_local_server(port=0)
         # Save the credentials for next time
         with open(token_path, 'wb') as token_file:
-            token_file.write(creds.to_json())
+            pickle.dump(creds, token_file)
     return creds
 
 def list_emails(service):
