@@ -17,7 +17,6 @@ with open(constants_path, 'r') as file:
     constants = yaml.safe_load(file)
 
 NUMBER_OF_EMAIL_LIMIT = constants['NUMBER_OF_EMAIL_LIMIT']
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def authenticate():
     print("Enter authenticate")

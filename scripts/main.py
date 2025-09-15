@@ -51,7 +51,6 @@ def main():
                     mark_as_unread(service, email[0])
                 elif action == "archive":
                     archive_email(service, email[0])
-                    pass
         else:
             print(f"Email {email[0]} does not match rules.")
 

@@ -3,7 +3,7 @@
 <h1>Sample README</h1>
 
 A project dedicated to Email Rules.
-<h2>STEPS for having the setup.<h2>
+<h2>STEPS for having the setup.</h2>
 <h3>Google Setup</h3>
 <h4> Google Oauth Account Setup </h4>
 <p>

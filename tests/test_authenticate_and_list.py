@@ -1,7 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock
-
-from idna.idnadata import scripts
+from unittest.mock import MagicMock
 from googleapiclient.discovery import build
 
 from email_rules.scripts.authenticate_and_list import (
@@ -14,19 +12,6 @@ from email_rules.scripts.authenticate_and_list import (
 )
 
 class TestGmailFunctions(unittest.TestCase):
-    #
-    # @patch('email_rules.scripts.authenticate_and_list.os.path.exists')
-    # @patch('email_rules.scripts.authenticate_and_list.pickle.load')
-    # def test_authenticate_existing_token(self, mock_pickle_load, mock_path_exists):
-    #     mock_path_exists.return_value = True
-    #     mock_creds = MagicMock()
-    #     mock_creds.valid = True
-    #     mock_pickle_load.return_value = mock_creds
-    #
-    #     creds = authenticate()
-    #     self.assertEqual(creds, mock_creds)
-
-
     def test_authenticate_real(self):
         creds = authenticate()
         service = build('gmail', 'v1', credentials=creds)
