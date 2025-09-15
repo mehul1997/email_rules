@@ -43,18 +43,17 @@ https://www.googleapis.com/auth/gmail.readonly <br/>
 1. There is a requirements.txt which needs to be used to install python packages. Run the following command in order to install it. <br/>
 python3 -m pip install -r requirements.txt <br/>
 2. Make sure the interpreter is well setup accordingly. Feel free to use a virtual environment to get everything setup. <br/>
-(Use this :-)<br/> python3 -m venv venv <br/> source venv/bin/activate <br/>
-
+(Use this :-)<br/><br/> python3 -m venv venv <br/> source venv/bin/activate <br/><br/>
 3. Run python scripts/authenticate_and_list.py to test the google Oauth Setup. It should use credentials.json in order to fill up token.json. Once you run the script a tab of browser should open up to accept permissions. <br/>
 4. Once you observe that token.json has been filled you can consider a successful google Oauth Setup.
 5. If things don't work out try manually adding python interpreter and packages as well. <br/>
 6. We are using SQLite so no specific setup is needed at all for db/table. <br/>
 
 <h4> Running main script </h4>
-1. The rules are present in data/rules.json. Use that to have a go at the rules.
-2. To run the script and see it's working nature run:- <br/>
-python scripts/main.py
-3. You should see few logs appearing in terminal which should confirm the working.
+1. The rules are present in data/rules.json. Use that to have a go at the rules.<br/>
+2. To run the script and see it's working nature run:- <br/><br/>
+python scripts/main.py<br/><br/>
+3. You should see few logs appearing in terminal which should confirm the working.<br/>
 
 </body>
 </html>
