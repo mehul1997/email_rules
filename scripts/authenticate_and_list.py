@@ -19,12 +19,7 @@ with open(constants_path, 'r') as file:
 NUMBER_OF_EMAIL_LIMIT = constants['NUMBER_OF_EMAIL_LIMIT']
 
 def authenticate():
-    print("Enter authenticate")
     creds = None
-    # token_path = '../data/token.json'
-    # print(token_path)
-    # cred_path = '../credentials/credentials.json'
-    # print(cred_path)
 
     token_path = os.path.join(BASE_DIR, '..', 'data', 'token.json')
     cred_path = os.path.join(BASE_DIR, '..', 'credentials', 'credentials.json')
@@ -96,14 +91,3 @@ def archive_email(service, msg_id):
         body={'removeLabelIds': ['INBOX']}
     ).execute()
     print(f"Message {msg_id} archived.")
-
-def main():
-    print("hello")
-    creds = authenticate()
-    service = build('gmail', 'v1', credentials=creds)
-    ids = list_emails(service)
-    email_data = get_email_details(service, ids[0]['id'])
-    print(email_data)
-
-if __name__ == "__main__":
-    main()

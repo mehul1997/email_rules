@@ -4,7 +4,7 @@
         {
             "field": "from",
             "predicate": "contains",
-            "value": "info@digital.axisbankmail.com"
+            "value": "notifications@github.com"
         },
         {
             "field": "subject",
@@ -14,7 +14,7 @@
         {
             "field": "date",
             "predicate": "less_than",
-            "value": "2023-06-29"
+            "value": "2025-06-12"
         }
     ],
     "actions": ["mark_as_read"]

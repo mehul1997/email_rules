@@ -2,6 +2,9 @@ credentials/
 venv/
 data/token.json
 data/emails.db
+scripts/__pycache__/
+__pycache__/
+.DS_Store
 
 
 

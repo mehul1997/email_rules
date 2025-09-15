@@ -12,7 +12,7 @@ from authenticate_and_list import authenticate, get_email_details, list_emails, 
 from googleapiclient.discovery import build
 from rules import load_rules, apply_rules
 
-def main():
+def apply_rules_on_emails():
     conn = connect_db()
     if table_exists(conn, 'emails'):
         print("Table already exists.")
@@ -58,4 +58,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    apply_rules_on_emails()

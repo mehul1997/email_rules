@@ -44,12 +44,3 @@ def apply_rules(email, rules):
         return all(conditions_met)
     else:
         return any(conditions_met)
-
-
-
-def main():
-    rules = load_rules()
-    print(rules)
-
-if __name__=='__main__':
-    main()
