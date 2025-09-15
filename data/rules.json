@@ -1,0 +1,21 @@
+{
+    "predicate": "Any",
+    "rules": [
+        {
+            "field": "from",
+            "predicate": "contains",
+            "value": "info@digital.axisbankmail.com"
+        },
+        {
+            "field": "subject",
+            "predicate": "contains",
+            "value": "12+ roles"
+        },
+        {
+            "field": "date",
+            "predicate": "less_than",
+            "value": "2023-06-29"
+        }
+    ],
+    "actions": ["mark_as_read"]
+}

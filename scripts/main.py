@@ -8,7 +8,7 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
 
 from config.database import connect_db, create_table, save_email, fetch_all_emails, table_exists, fetch_email
-from authenticate_and_list import authenticate, get_email_details, list_emails
+from authenticate_and_list import authenticate, get_email_details, list_emails, mark_as_read, mark_as_unread, archive_email
 from googleapiclient.discovery import build
 from rules import load_rules, apply_rules
 
@@ -36,7 +36,7 @@ def main():
     emails = fetch_all_emails(conn)
     for email in emails:
         print("Checking Email: {}".format(email))
-        email_dict= {
+        email_dict = {
             'id': email[0],
             'from': email[1],
             'subject': email[2],
@@ -44,7 +44,14 @@ def main():
         }
         if apply_rules(email_dict, rules):
             print(f"Email {email[0]} matches rules!")
-            # Here you can take an action like mark as read, archive, etc.
+            for action in rules.get('actions', []):
+                if action == "mark_as_read":
+                    mark_as_read(service, email[0])
+                elif action == "mark_as_unread":
+                    mark_as_unread(service, email[0])
+                elif action == "archive":
+                    archive_email(service, email[0])
+                    pass
         else:
             print(f"Email {email[0]} does not match rules.")
 
