@@ -3,17 +3,26 @@ import pickle
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
+import yaml
 
 # Gmail API scope
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
 
+# Get the directory of the current script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Load constants.yml
+constants_path = os.path.join(BASE_DIR, '..', 'config', 'constants.yml')
+with open(constants_path, 'r') as file:
+    constants = yaml.safe_load(file)
+
+NUMBER_OF_EMAIL_LIMIT = constants['NUMBER_OF_EMAIL_LIMIT']
+
 def authenticate():
-    print("Enter authenticate")
     creds = None
-    token_path = '../data/token.json'
-    print(token_path)
-    cred_path = '../credentials/credentials.json'
-    print(cred_path)
+
+    token_path = os.path.join(BASE_DIR, '..', 'data', 'token.json')
+    cred_path = os.path.join(BASE_DIR, '..', 'credentials', 'credentials.json')
 
     # Load existing token if available
     if os.path.exists(token_path):
@@ -29,12 +38,12 @@ def authenticate():
             creds = flow.run_local_server(port=0)
         # Save the credentials for next time
         with open(token_path, 'wb') as token_file:
-            token_file.write(creds.to_json())
+            pickle.dump(creds, token_file)
     return creds
 
 def list_emails(service):
     # Fetch the first 5 emails from the inbox
-    results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=5).execute()
+    results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=NUMBER_OF_EMAIL_LIMIT).execute()
     messages = results.get('messages', [])
 
     if not messages:
@@ -59,13 +68,26 @@ def get_email_details(service, msg_id):
             email_data['date'] = header['value']
     return email_data
 
-def main():
-    print("hello")
-    creds = authenticate()
-    service = build('gmail', 'v1', credentials=creds)
-    ids = list_emails(service)
-    email_data = get_email_details(service, ids[0]['id'])
-    print(email_data)
+def mark_as_read(service, msg_id):
+    service.users().messages().modify(
+        userId='me',
+        id=msg_id,
+        body={'removeLabelIds': ['UNREAD']}
+    ).execute()
+    print(f"Message {msg_id} marked as read.")
 
-if __name__ == "__main__":
-    main()
+def mark_as_unread(service, msg_id):
+    service.users().messages().modify(
+        userId='me',
+        id=msg_id,
+        body={'addLabelIds': ['UNREAD']}
+    ).execute()
+    print(f"Message {msg_id} marked as unread.")
+
+def archive_email(service, msg_id):
+    service.users().messages().modify(
+        userId='me',
+        id=msg_id,
+        body={'removeLabelIds': ['INBOX']}
+    ).execute()
+    print(f"Message {msg_id} archived.")
